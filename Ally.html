@@ -1,0 +1,46 @@
+<head> 
+<input type="text" id="textEntry" name="textEntry">
+<input type="date" id="dateEntry" name="dateEntry">
+<button onclick = "enterButton()" name = "enterButton" type = "submit">Enter</button>
+</head>
+<div id = "body">
+</div>
+<script>
+var entries = [];
+
+class Entry {
+	constructor(text, date){
+		this.text = text;
+		this.date = date;
+	}
+	
+	toString(){
+		return this.date+": "+this.text;
+	}
+	
+	getDate(){
+	return this.date;
+	}
+}
+function enterButton(){
+	var text = document.getElementById("textEntry").value;
+	var date = document.getElementById("dateEntry").value;
+	var entry = new Entry(text, date);
+	entries.push(entry);
+	sortEntries();
+	document.getElementById("body").innerHTML = toBody();
+}
+
+function sortEntries(){
+	entries.sort((a,b) => (a.getDate() > b.getDate()) ? 1:-1);
+}
+
+function toBody(){
+	s = ""
+	for(var i=0;i<entries.length;i++){
+		s += entries[i].toString()+"<br>";
+	}
+	return s;
+}
+
+</script>
